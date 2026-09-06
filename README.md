@@ -33,28 +33,6 @@ Each line is a JSON object with an `messages` array in OpenAI chat format:
 ]}
 ```
 
-## Usage with Unsloth
-
-```python
-from unsloth import FastLanguageModel
-from datasets import load_dataset
-
-# Load dataset directly from this repo
-dataset = load_dataset("json", data_files="dataset_junk_store_roleplay_v2.jsonl", split="train")
-
-# Convert to Unsloth instruction format
-def format_messages(example):
-    texts = []
-    for msg in example["messages"]:
-        texts.append(f"{msg['role']}: {msg['content']}")
-    example["text"] = "\n".join(texts)
-    return example
-
-dataset = dataset.map(format_messages)
-```
-
-Or use with `trl` directly — the `messages` field works out of the box with `SFTTrainer`.
-
 ## License
 
 [Add your license here — e.g., MIT, CC BY-SA 4.0, or "All Rights Reserved"]
